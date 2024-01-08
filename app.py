@@ -12,45 +12,19 @@ app = dash.Dash(__name__)
 app.layout = html.Div([
     html.H1("Jogo de Operadora de Telecom"),
     # Adicione componentes para os parâmetros ajustáveis
-    html.Label('Carry (Low/Mid/High):'),
+    html.Label('Frequency (Low/High):'),
     dcc.RadioItems(id='radio-c', options=[
-        {'label': 'Low', 'value': 1},
-        {'label': 'Mid', 'value': 2},
-        {'label': 'High', 'value': 3}
+        {'label': 'Low', 'value': 0},
+        {'label': 'High', 'value': 1}
     ], value=1),
     
-    html.Label('num of radios (1/2/3):'),
-    dcc.RadioItems(id='radio-r', options=[
-        {'label': '1', 'value': 1},
-        {'label': '2', 'value': 2},
-        {'label': '3', 'value': 3}
-    ], value=1),
-    
-    html.Label('Usuários (0/1/2/3):'),
-    dcc.RadioItems(id='radio-u', options=[
+    html.Label('Usuários (0/1/2):'),
+    dcc.Checklist(id='checklist-u', options=[
         {'label': '0', 'value': 0},
         {'label': '1', 'value': 1},
-        {'label': '2', 'value': 2},
-        {'label': '3', 'value': 3}
-    ], value=0),
+        {'label': '2', 'value': 2}
+    ], value=[]),
     
-    html.Label('Período (Day/Night):'),
-    dcc.RadioItems(id='radio-p', options=[
-        {'label': 'Day', 'value': 'day'},
-        {'label': 'Night', 'value': 'night'}
-    ], value='day'),
-    
-    html.Label('spectral efficiency (Good/Bad):'),
-    dcc.RadioItems(id='radio-s', options=[
-        {'label': 'Good', 'value': 'good'},
-        {'label': 'Bad', 'value': 'bad'}
-    ], value='good'),
-    
-    html.Label('traffic (Light/Heavy):'),
-    dcc.RadioItems(id='radio-t', options=[
-        {'label': 'Light', 'value': 'light'},
-        {'label': 'Heavy', 'value': 'heavy'}
-    ], value='light'),
     
     html.Button('Comparar Solução', id='button-compare'),
     html.Div(id='result-text')  # Mostrará o resultado da comparação
@@ -61,20 +35,19 @@ app.layout = html.Div([
     Output('result-text', 'children'),
     [Input('button-compare', 'n_clicks')],
     [Input('radio-c', 'value'),
-     Input('radio-r', 'value'),
-     Input('radio-u', 'value'),
-     Input('radio-p', 'value'),
-     Input('radio-s', 'value'),
-     Input('radio-t', 'value')]
+     Input('checklist-u', 'value'),
+
+    ]
 )
-def comparar_solucao(n_clicks, c, r, u, p, s, t):
+def comparar_solucao(n_clicks, c, u):
     if n_clicks is None:
         return ""
     else:
-        pontuacao_jogador = calcular_pontuacao(c, r, u, p, s, t)
+        pontuacao_jogador = calcular_pontuacao(c, u)
         # Aqui você pode comparar pontuacao_jogador com a solução ótima e gerar uma mensagem de feedback.
+        
         mensagem = f"Sua pontuação: {pontuacao_jogador}. (Falta implementar a comparação com a solução ótima)"
-        mensagem = f"c = {c}\n r={r}\n u={u}\n p={p}\n s={s}\n t={t} /nPontuação = {pontuacao_jogador}"
+        mensagem = f"c = {c}\n u={u}\n /nPontuação = {pontuacao_jogador}"
 
         return mensagem
 
