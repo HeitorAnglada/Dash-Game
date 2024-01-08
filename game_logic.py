@@ -1,27 +1,35 @@
 # game_logic.py
-def calcular_pontuacao(c, r, u, p, s, t):
-    # Pesos arbitrários para os parâmetros
-    peso_c = 2
-    peso_r = 1
-    peso_u = 1
-    peso_p = 1
-    peso_s = 2
-    peso_t = 2
+#'''
+optimal=[]
+optimal.append([[[0, 0, 0], 'N'],[0, 2, 'H', 'L'], [0, 2, 'L', 'H'], [0, 2, 'L', 'L'], [1, 2, 'H', 'L'], [1, 2, 'L', 'H'], [1, 2, 'L', 'L']])
+optimal.append([[[0, 0, 1], 'N'],[[0, 2, 'H', 'L'], [1, 2, 'H', 'L']]])
+optimal.append([[[0, 1, 0], 'N'],[[1, 2, 'H', 'L'], [1, 2, 'L', 'H']]])
+optimal.append([[[0, 1, 1], 'N'],[[1, 2, 'H', 'L']]])
+optimal.append([[[1, 0, 0], 'N'],[[0, 2, 'H', 'L'], [0, 2, 'L', 'H']]])
+optimal.append([[[1, 0, 1], 'N'],[[0, 2, 'H', 'L']]])
+optimal.append([[[1, 1, 0], 'N'],[[0, 1, 'H', 'L'], [0, 1, 'L', 'H']]])
+optimal.append([[[1, 1, 1], 'N'],[[0, 2, 'L', 'H'], [1, 2, 'L', 'H']]])
+optimal.append([[[0, 0, 0], 'I'],[[0, 2, 'H', 'L'], [0, 2, 'L', 'H'], [1, 2, 'H', 'L'], [1, 2, 'L', 'H']]])
+optimal.append([[[0, 0, 1], 'I'],[[0, 2, 'H', 'L'], [0, 2, 'L', 'H'], [1, 2, 'H', 'L'], [1, 2, 'L', 'H']]])
+optimal.append([[[0, 1, 0], 'I'],[[1, 2, 'H', 'L'], [1, 2, 'L', 'H']]])
+optimal.append([[[0, 1, 1], 'I'],[[1, 2, 'H', 'L'], [1, 2, 'L', 'H']]])
+optimal.append([[[1, 0, 0], 'I'],[[0, 2, 'H', 'L'], [0, 2, 'L', 'H']]])
+optimal.append([[[1, 0, 1], 'I'],[[0, 2, 'H', 'L'], [0, 2, 'L', 'H']]])
+optimal.append([[[1, 1, 0], 'I'],[[0, 1, 'H', 'L'], [0, 1, 'L', 'H']]])
+optimal.append([[[1, 1, 1], 'I'],[[0, 2, 'H', 'L'], [0, 2, 'L', 'H'], [1, 2, 'H', 'L'], [1, 2, 'L', 'H']]])
+#'''
+def calcular_pontuacao(c, c2, u, rd):
 
-    # Valores base para cada parâmetro
-    valor_base_c = 2
-    valor_base_r = 2
-    valor_base_u = 1
-    valor_base_p = 1
-    valor_base_s = 2
-    valor_base_t = 2
+    entrada = []
+        #u.sort()
+        #entrada.append(u)
+    for U in u:
+        entrada.append(U)
+    entrada.append(c)
+    entrada.append(c2)  
 
     # Calcular a pontuação
-    pontuacao = (c - valor_base_c) * peso_c + \
-                (r - valor_base_r) * peso_r + \
-                (u - valor_base_u) * peso_u + \
-                (1 if p == 'night' else 0) * peso_p + \
-                (1 if s == 'bad' else 0) * peso_s + \
-                (1 if t == 'heavy' else 0) * peso_t
+    pontuacao = 5
 
-    return max(0, pontuacao)  # Pontuação mínima é 0
+    #return pontuacao  # Pontuação mínima é 0
+    return optimal[1]
