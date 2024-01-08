@@ -12,14 +12,14 @@ app = dash.Dash(__name__)
 app.layout = html.Div([
     html.H1("Jogo de Operadora de Telecom"),
     # Adicione componentes para os parâmetros ajustáveis
-    html.Label('Carry (Low/Mid/High):'),
+    html.Label('Custo (Low/Mid/High):'),
     dcc.RadioItems(id='radio-c', options=[
         {'label': 'Low', 'value': 1},
         {'label': 'Mid', 'value': 2},
         {'label': 'High', 'value': 3}
     ], value=1),
     
-    html.Label('num of radios (1/2/3):'),
+    html.Label('Reclamações (1/2/3):'),
     dcc.RadioItems(id='radio-r', options=[
         {'label': '1', 'value': 1},
         {'label': '2', 'value': 2},
@@ -40,13 +40,13 @@ app.layout = html.Div([
         {'label': 'Night', 'value': 'night'}
     ], value='day'),
     
-    html.Label('spectral efficiency (Good/Bad):'),
+    html.Label('Satisfação (Good/Bad):'),
     dcc.RadioItems(id='radio-s', options=[
         {'label': 'Good', 'value': 'good'},
         {'label': 'Bad', 'value': 'bad'}
     ], value='good'),
     
-    html.Label('traffic (Light/Heavy):'),
+    html.Label('Tráfego (Light/Heavy):'),
     dcc.RadioItems(id='radio-t', options=[
         {'label': 'Light', 'value': 'light'},
         {'label': 'Heavy', 'value': 'heavy'}
@@ -74,7 +74,7 @@ def comparar_solucao(n_clicks, c, r, u, p, s, t):
         pontuacao_jogador = calcular_pontuacao(c, r, u, p, s, t)
         # Aqui você pode comparar pontuacao_jogador com a solução ótima e gerar uma mensagem de feedback.
         mensagem = f"Sua pontuação: {pontuacao_jogador}. (Falta implementar a comparação com a solução ótima)"
-        mensagem = f"c = {c}\n r={r}\n u={u}\n p={p}\n s={s}\n t={t} /nPontuação = {pontuacao_jogador}"
+        mensagem = f"c = {c}\n r={r}\n u={u}\n p={p}\n s={s}\n t={t}"
 
         return mensagem
 
