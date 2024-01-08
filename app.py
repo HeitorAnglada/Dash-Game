@@ -25,7 +25,6 @@ app.layout = html.Div([
         {'label': '2', 'value': 2}
     ], value=[]),
     
-    
     html.Button('Comparar Solução', id='button-compare'),
     html.Div(id='result-text')  # Mostrará o resultado da comparação
 ])
@@ -35,8 +34,7 @@ app.layout = html.Div([
     Output('result-text', 'children'),
     [Input('button-compare', 'n_clicks')],
     [Input('radio-c', 'value'),
-     Input('checklist-u', 'value'),
-
+     Input('checklist-u', 'value')
     ]
 )
 def comparar_solucao(n_clicks, c, u):
@@ -45,9 +43,11 @@ def comparar_solucao(n_clicks, c, u):
     else:
         pontuacao_jogador = calcular_pontuacao(c, u)
         # Aqui você pode comparar pontuacao_jogador com a solução ótima e gerar uma mensagem de feedback.
-        
-        mensagem = f"Sua pontuação: {pontuacao_jogador}. (Falta implementar a comparação com a solução ótima)"
-        mensagem = f"c = {c}\n u={u}\n /nPontuação = {pontuacao_jogador}"
+        entrada = []
+        u.sort()
+        entrada.append(c)
+        entrada.append(u)
+        mensagem = f"{entrada} Pontuação = {pontuacao_jogador}"
 
         return mensagem
 
